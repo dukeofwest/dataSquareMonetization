@@ -1,0 +1,5 @@
+# install latest release from PyPI:
+autobahn[twisted,encryption,serialization,xbr]
+
+# install master from GitHub:
+#git+https://github.com/crossbario/autobahn-python.git@master#egg=autobahn[twisted,encryption,serialization,xbr]

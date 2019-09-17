@@ -1,0 +1,16 @@
+{
+  "name": "xbr-example",
+  "version": "1.0.0",
+  "description": "Install dependencies using ```bash make deps ``` To start the seller run ```bash make seller ``` For buyer ```bash make buyer ```",
+  "main": "seller.js",
+  "dependencies": {
+    "autobahn": ">=19.9.2",
+    "autobahn-xbr": ">=19.9.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED"
+}

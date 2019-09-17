@@ -1,0 +1,67 @@
+<additionals>
+	<rerouter edges="174600936#0" id="rerouter_sw_turn">
+		<interval end="1e9">
+			<destProbReroute id="472503797"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="5076397#1" id="rerouter_e_turn">
+		<interval end="1e9">
+			<destProbReroute id="-5076397#1"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="-482331543#0" id="rerouter_n_turn">
+		<interval end="1e9">
+			<destProbReroute id="482331543#0"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="266334242#0" id="rerouter_ne_turn">
+		<interval end="1e9">
+			<destProbReroute id="52288459"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="-87286682" id="rerouter_nw_turn">
+		<interval end="1e9">
+			<destProbReroute id="87286682"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="472503797" id="rerouter_sw">
+		<interval end="1e9">
+			<destProbReroute id="5076397#1" probability="0.25"/>
+			<destProbReroute id="-482331543#0" probability="0.25"/>
+			<destProbReroute id="266334242#0" probability="0.25"/>
+			<destProbReroute id="-87286682" probability="0.25"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="-5076397#1" id="rerouter_e">
+		<interval end="1e9">
+			<destProbReroute id="174600936#0" probability="0.25"/>
+			<destProbReroute id="-482331543#0" probability="0.25"/>
+			<destProbReroute id="266334242#0" probability="0.25"/>
+			<destProbReroute id="-87286682" probability="0.25"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="482331543#0" id="rerouter_n">
+		<interval end="1e9">
+			<destProbReroute id="174600936#0" probability="0.25"/>
+			<destProbReroute id="5076397#1" probability="0.25"/>
+			<destProbReroute id="266334242#0" probability="0.25"/>
+			<destProbReroute id="-87286682" probability="0.25"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="52288459" id="rerouter_ne">
+		<interval end="1e9">
+			<destProbReroute id="174600936#0" probability="0.25"/>
+			<destProbReroute id="5076397#1" probability="0.25"/>
+			<destProbReroute id="-482331543#0" probability="0.25"/>
+			<destProbReroute id="-87286682" probability="0.25"/>
+		</interval>
+	</rerouter>
+	<rerouter edges="87286682" id="rerouter_nw">
+		<interval end="1e9">
+			<destProbReroute id="174600936#0" probability="0.25"/>
+			<destProbReroute id="5076397#1" probability="0.25"/>
+			<destProbReroute id="-482331543#0" probability="0.25"/>
+			<destProbReroute id="266334242#0" probability="0.25"/>
+		</interval>
+	</rerouter>
+</additionals>

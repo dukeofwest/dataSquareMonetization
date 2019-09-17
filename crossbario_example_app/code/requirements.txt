@@ -1,0 +1,3 @@
+# install latest release from PyPI:
+autobahn[twisted,encryption,serialization,xbr]
+

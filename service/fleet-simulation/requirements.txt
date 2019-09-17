@@ -1,0 +1,5 @@
+## Install the latest release from PyPI:
+autobahn[serialization,xbr]>=19.9.3
+
+## Install master from GitHub
+#git+https://github.com/crossbario/autobahn-python.git@master#egg=autobahn[serialization,xbr]

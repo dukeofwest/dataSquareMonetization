@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>seller.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "";
+    var thisFile = "seller.js";
+    var defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container">
+    <div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+    
+      <tr>
+        <td class="docs">
+          <h1>seller.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+    
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1"></a>
+</div>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> autobahn = <span class="hljs-built_in">require</span>(<span class="hljs-string">'autobahn'</span>);
+<span class="hljs-keyword">var</span> xbr = <span class="hljs-built_in">require</span>(<span class="hljs-string">'autobahn-xbr'</span>);
+<span class="hljs-keyword">var</span> web3 = <span class="hljs-built_in">require</span>(<span class="hljs-string">'web3'</span>);
+<span class="hljs-keyword">var</span> BN = web3.utils.BN;
+<span class="hljs-keyword">var</span> uuid = <span class="hljs-built_in">require</span>(<span class="hljs-string">'uuid-buffer'</span>);
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Running on Autobahn '</span> + autobahn.version);
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2"></a>
+</div>
+<p>Private key of your seller delegate</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> SELLER_PRIVATEKEY = <span class="hljs-string">"&lt;SELLER_PRIVATE_KEY&gt;"</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3"></a>
+</div>
+<p>Market maker address</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> MARKET_MAKER_ADDR = <span class="hljs-string">"0x3E5e9111Ae8eB78Fe1CC3bb8915d5D461F3Ef9A9"</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4"></a>
+</div>
+<p>TEAM_ID</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> TEAM_ID = <span class="hljs-string">"&lt;TEAM_ID&gt;"</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5"></a>
+</div>
+<p>TICKET</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> TICKET = <span class="hljs-string">"&lt;TICKET&gt;"</span>;
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6"></a>
+</div>
+<p>TOPIC TO SUBSCRIBE TO</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">const</span> TOPIC = <span class="hljs-string">"&lt;TOPIC&gt;"</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7"></a>
+</div>
+<p>Connect to Crossbarfx node</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript"><span class="hljs-keyword">var</span> connection = <span class="hljs-keyword">new</span> autobahn.Connection({
+    <span class="hljs-attr">realm</span>: <span class="hljs-string">"realm1"</span>,
+    <span class="hljs-attr">authmethods</span>: [<span class="hljs-string">"ticket"</span>],
+    <span class="hljs-attr">authid</span>: TEAM_ID,
+    <span class="hljs-attr">onchallenge</span>: onchallenge,
+    <span class="hljs-attr">transports</span>: [
+      {
+        <span class="hljs-attr">url</span>: <span class="hljs-string">"wss://continental2.crossbario.com/ws"</span>,
+        <span class="hljs-attr">type</span>: <span class="hljs-string">"websocket"</span>,
+        <span class="hljs-attr">serializers</span>: [<span class="hljs-keyword">new</span> autobahn.serializer.CBORSerializer()]
+      }
+    ]
+  });
+  
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8"></a>
+</div>
+<p>Only for authentication on crossbar</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onchallenge</span>(<span class="hljs-params">session, method, extra</span>) </span>{
+    <span class="hljs-keyword">if</span> (method === <span class="hljs-string">"ticket"</span>) {
+      <span class="hljs-keyword">return</span> TICKET;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">throw</span> <span class="hljs-string">"don't know how to authenticate using '"</span> + method + <span class="hljs-string">"'"</span>;
+    }
+  };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9"></a>
+</div>
+<p>callback fired upon new WAMP session</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">connection.onopen = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">session, details</span>) </span>{
+
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"WAMP session connected:"</span>, details);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10"></a>
+</div>
+<p>the XBR token has 18 decimals</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">const</span> decimals = <span class="hljs-keyword">new</span> BN(<span class="hljs-string">'1000000000000000000'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-11" id="section-11"></a>
+</div>
+<p>price in XBR per key</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">const</span> price = <span class="hljs-keyword">new</span> BN(<span class="hljs-number">35</span>).mul(decimals);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-12" id="section-12"></a>
+</div>
+<p>key rotation interval in seconds</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">const</span> key_rotation_interval = <span class="hljs-number">10</span>;
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-13" id="section-13"></a>
+</div>
+<p>API ID of the interface of the offered service</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">const</span> apiID = uuid.toBuffer(<span class="hljs-string">'bd65e220-aef7-43c0-a801-f8d95fa71f39'</span>);
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-14" id="section-14"></a>
+</div>
+<p>instantiate a simple seller</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    <span class="hljs-keyword">var</span> seller = <span class="hljs-keyword">new</span> xbr.SimpleSeller(MARKET_MAKER_ADDR, SELLER_PRIVATEKEY);
+    <span class="hljs-keyword">var</span> counter = <span class="hljs-number">1</span>;
+
+    seller.add(apiID, TOPIC, price, key_rotation_interval);
+
+    <span class="hljs-keyword">var</span> do_publish = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">const</span> payload = {<span class="hljs-string">"data"</span>: <span class="hljs-string">"js-seller"</span>, <span class="hljs-string">"counter"</span>: counter};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-15" id="section-15"></a>
+</div>
+<p>encrypt the XBR payload, potentially automatically rotating &amp; offering a new data encryption key</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-keyword">let</span> [key_id, enc_ser, ciphertext] = seller.wrap(apiID, TOPIC, payload);
+
+        <span class="hljs-keyword">const</span> options = {<span class="hljs-attr">acknowledge</span>: <span class="hljs-literal">true</span>};
+
+        session.publish(TOPIC,
+                        [key_id, enc_ser, ciphertext],
+                        {},
+                        options).then(
+            <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">pub</span>) </span>{
+                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Published event "</span> + pub.id);
+            },
+            <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+                <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Failed to publish event"</span>, err);
+            }
+        );
+
+        counter += <span class="hljs-number">1</span>;
+        setTimeout(do_publish, <span class="hljs-number">1000</span>);
+    };
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-16" id="section-16"></a>
+</div>
+<p>start selling</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">    seller.start(session).then(
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-17" id="section-17"></a>
+</div>
+<p>success: we've got an active paying channel with remaining balance ..</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">balance</span>) </span>{
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Seller has started, remaining balance in active paying channel is "</span> + balance.div(decimals) + <span class="hljs-string">" XBR"</span>);
+            do_publish();
+        },
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-18" id="section-18"></a>
+</div>
+<p>we don't have an active paying channel =&gt; bail out</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Failed to start seller:"</span>, error);
+            process.exit(<span class="hljs-number">1</span>);
+        }
+    );
+};
+
+</pre>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="docs">
+          <div class="pilwrap">
+  <a class="pilcrow" href="#section-19" id="section-19"></a>
+</div>
+<p>open WAMP session</p>
+
+        </td>
+        <td class="code highlight">
+          <pre class="javascript">connection.open();
+
+</pre>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
+
+  </div>
+</body>
+</html>

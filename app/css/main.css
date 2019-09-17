@@ -1,0 +1,18 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+/* Set the size of the div element that contains the map */
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
